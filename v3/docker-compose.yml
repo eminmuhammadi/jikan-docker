@@ -1,17 +1,31 @@
-version: "3.4"
+version: "3.7"
 
 services:
-  jikan-rest-api:
+  jikan_api:
     build:
       context: jikan
       dockerfile: Dockerfile
+    env_file:
+      - ./jikan/.env
     depends_on:
       - jikan-redis
     ports:
-      - "8000:8000"
+      - "60080:60080"
     networks:
       - default
     restart: always
+    environment:
+      - HOSTNAME=jikan_api
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - jikan_api
 
   jikan-redis:
     image: redis
