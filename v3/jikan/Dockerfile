@@ -11,7 +11,7 @@ RUN	apt-get update && apt-get install -y \
 
 RUN	git clone https://github.com/eminmuhammadi/jikan-rest.git . \
 	&& composer require 'composer/package-versions-deprecated' \
-	&& composer install --prefer-dist --no-progress --classmap-authoritative  --no-dev --no-interaction --optimize-autoloader \
+	&& composer install --ignore-platform-reqs --prefer-dist --no-progress --classmap-authoritative  --no-dev --no-interaction --optimize-autoloader \
 	&& composer update jikan-me/jikan
 
 ADD	.env	/run-jikan.sh	./
