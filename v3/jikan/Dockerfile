@@ -1,4 +1,4 @@
-FROM php:7.4-apache-buster
+FROM php:8.1.1-apache-buster
 
 ENV	COMPOSER_ALLOW_SUPERUSER	1
 
@@ -11,7 +11,7 @@ RUN	apt-get update && apt-get install -y \
 
 RUN	git clone https://github.com/eminmuhammadi/jikan-rest.git . \
 	&& composer require 'composer/package-versions-deprecated' \
-	&& composer install --prefer-dist --no-progress --classmap-authoritative  --no-interaction \
+	&& composer install --prefer-dist --no-progress --classmap-authoritative  --no-dev --no-interaction --optimize-autoloader \
 	&& composer update jikan-me/jikan
 
 ADD	.env	/run-jikan.sh	./
